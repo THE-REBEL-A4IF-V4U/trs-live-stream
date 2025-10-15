@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRS LIVE STREAM | The Rebel TV</title>
+
+<meta name="description" content="Watch live TV channels from Bangladesh, India, Sports, Movies and News on The Rebel TV. Online streaming of BTV, ATN Bangla, Discovery, Sony PIX HD and more.">
+<meta name="keywords" content="Live TV, The Rebel TV, Bangladesh TV, India TV, Sports, Movies, News, Online TV, Free Streaming">
+<meta name="author" content="THE REBEL SQUAD">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="TRS LIVE STREAM | The Rebel TV">
+<meta property="og:description" content="Watch live TV channels from Bangladesh, India, Sports, Movies and News on The Rebel TV.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://your-vercel-site.vercel.app">
+<meta property="og:image" content="https://your-site-logo-link.com/logo.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Watch live TV channels from Bangladesh, India, Sports, Movies and News on The Rebel TV.">
+<meta name="twitter:image" content="https://your-site-logo-link.com/logo.png">
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+body {
+  margin:0; font-family:Poppins,sans-serif;
+  background:#000; color:#ffeb3b;
+}
+#notification-bar {background:#111; color:#ffeb3b; text-align:center; padding:8px; font-weight:700; border-bottom:2px solid #ffeb3b;}
+header {text-align:center; padding:15px; background:#111; color:#ffeb3b; font-size:1.8rem; font-weight:700; border-bottom:2px solid #ffeb3b;}
+marquee {background:#111; color:#00ffe1; font-weight:bold; padding:8px; border-bottom:2px solid #ffeb3b;}
+video {width:95%; max-height:75vh; display:block; margin:20px auto; border:2px solid #ffeb3b; border-radius:6px; background:#000; position:relative;}
+#watermark {position:absolute; top:10px; right:10px; color:rgba(255,235,59,0.5); font-weight:bold; font-size:18px; pointer-events:none; z-index:999;}
+#overlay-text {position:absolute; top:45%; left:50%; transform:translate(-50%,-50%); color:#ffeb3b; font-size:1.3rem; font-weight:bold; text-align:center; z-index:999; pointer-events:none;}
+.grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:15px; padding:20px;}
+.card {background:#111; border-radius:10px; overflow:hidden; cursor:pointer; text-align:center; transition:.3s; border:1px solid #ffeb3b80;}
+.card:hover {transform:scale(1.05); background:#222; box-shadow:0 0 20px #ffeb3b99; border-color:#ffeb3b;}
+.card img {width:100%; height:100px; object-fit:contain; background:#000; border-bottom:1px solid #ffeb3b50;}
+.card p {margin:8px 0; font-weight:600; color:#ffeb3b; font-size:0.9rem;}
+footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ffeb3b; font-weight:bold; background:#111; position:fixed; bottom:0; width:100%;}
+
+.cat-btn {padding:6px 12px; margin:4px; border-radius:999px; border:1px solid #ffeb3b55; cursor:pointer; font-weight:700; color:#ffeb3b;}
+.cat-btn.active {background:#ffeb3b; color:#000;}
+#categories {text-align:center; padding:12px;}
+
+/* Ads placeholders */
+.ad-300x250 {width:300px; height:250px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
+.ad-728x90 {width:728px; height:90px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
+.ad-468x60 {width:468px; height:60px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
+
+/* Social Bar */
+#social-bar {position:fixed; top:50%; right:0; transform:translateY(-50%); background:#111; border:2px solid #ffeb3b; border-radius:8px 0 0 8px; padding:10px; display:flex; flex-direction:column; z-index:999;}
+#social-bar a {margin:5px 0; color:#ffeb3b; font-weight:bold; text-decoration:none; text-align:center;}
+</style>
+</head>
+<body>
+
+<div id="notification-bar">Loading live match info...</div>
+<header>📺 TRS LIVE STREAM |  Rebel TV</header>
+<marquee id="notice-line">Loading latest updates...</marquee>
+
+<!-- Banner 728x90 -->
+<div class="ad-728x90">Ad Banner 728x90</div>
+
+<div style="position:relative;">
+  <video id="player" controls autoplay muted></video>
+  <div id="watermark">THE REBEL</div>
+  <div id="overlay-text">আপনি আপনার চ্যানেল সিলেক্ট করুন @THE REBEL</div>
+</div>
+
+<!-- Banner 300x250 -->
+<div class="ad-300x250">Ad Banner 300x250</div>
+
+<div id="categories">
+  <button class="cat-btn active" data-cat="all">All</button>
+  <button class="cat-btn" data-cat="bangladesh">Bangladesh</button>
+  <button class="cat-btn" data-cat="india">India</button>
+  <button class="cat-btn" data-cat="sports">Sports</button>
+  <button class="cat-btn" data-cat="movies">Movies</button>
+  <button class="cat-btn" data-cat="news">News</button>
+</div>
+
+<div class="grid" id="channels"></div>
+
+<!-- Banner 468x60 -->
+<div class="ad-468x60">Ad Banner 468x60</div>
+
+<!-- Social Bar -->
+<div id="social-bar">
+  <a href="https://www.facebook.com/THE.REBEL.SQUAD.TRS" target="_blank">FB</a>
+  <a href="https://t.me/@THE_REBEL_SQUAD" target="_blank">TG</a>
+  <a href="https://youtube.com/@Rebel_Tech_Zone" target="_blank">YT</a>
+</div>
+
+<footer>POWER BY © THE REBEL SQUAD</footer>
+
+<script>
+const grid = document.getElementById('channels');
+const player = document.getElementById('player');
+const overlayText = document.getElementById('overlay-text');
+let hls = null;
+let CHANNELS = [];
+let NOTIFICATIONS = {};
+
+// GitHub JSON links
+const channelURL = 'https://raw.githubusercontent.com/THE-REBEL-A4IF-V4U/Rebel/main/tts.json';
+const notificationURL = 'https://raw.githubusercontent.com/THE-REBEL-A4IF-V4U/Rebel/main/notice.json';
+
+// Fetch channels
+fetch(channelURL)
+  .then(r=>r.json())
+  .then(data=>{
+    CHANNELS = data;
+    render(CHANNELS);
+  })
+  .catch(err=>console.error('Channel fetch error:', err));
+
+// Fetch notifications
+fetch(notificationURL)
+  .then(r=>r.json())
+  .then(data=>{
+    NOTIFICATIONS = data;
+    if(NOTIFICATIONS.notification) document.getElementById('notification-bar').innerText = NOTIFICATIONS.notification;
+    if(NOTIFICATIONS.notice) document.getElementById('notice-line').innerText = NOTIFICATIONS.notice;
+  })
+  .catch(err=>console.error('Notification fetch error:', err));
+
+// Render channels
+function render(list){
+  grid.innerHTML='';
+  list.forEach(ch=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML=`<img src="${ch.logo}" alt="${ch.name}"><p>${ch.name}</p>`;
+    card.onclick=()=>selectChannel(ch);
+    grid.appendChild(card);
+  });
+}
+
+// Play selected channel
+function selectChannel(ch){
+  overlayText.style.display='none';
+  if(hls){ hls.destroy(); hls=null; }
+  if(Hls.isSupported()){
+    hls = new Hls();
+    hls.loadSource(ch.url);
+    hls.attachMedia(player);
+    hls.on(Hls.Events.MANIFEST_PARSED, ()=>player.play().catch(()=>{}));
+  } else if(player.canPlayType('application/vnd.apple.mpegurl')){
+    player.src = ch.url; player.play().catch(()=>{});
+  }
+}
+
+// Category filter
+document.querySelectorAll('.cat-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat.toLowerCase();
+    if(cat==='all') render(CHANNELS);
+    else render(CHANNELS.filter(c=>c.cat && c.cat.toLowerCase()===cat));
+  }
+});
+
+// Popunder Ads
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    const pop = window.open('https://your-popunder-link.com','popunder','width=800,height=600,scrollbars=no');
+    if(pop) pop.blur(); window.focus();
+  }, 5000); // 5 seconds delay
+});
+</script>
+</body>
+</html>
