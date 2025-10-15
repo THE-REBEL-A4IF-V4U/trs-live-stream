@@ -9,17 +9,15 @@
 <meta name="keywords" content="Live TV, The Rebel TV, Bangladesh TV, India TV, Sports, Movies, News, Online TV, Free Streaming">
 <meta name="author" content="THE REBEL SQUAD">
 
-<!-- Open Graph / Facebook -->
 <meta property="og:title" content="TRS LIVE STREAM | The Rebel TV">
 <meta property="og:description" content="Watch live TV channels from Bangladesh, India, Sports, Movies and News on The Rebel TV.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://your-vercel-site.vercel.app">
-<meta property="og:image" content="https://your-site-logo-link.com/logo.png">
+<meta property="og:url" content="https://trs-live-stream.vercel.app/">
+<meta property="og:image" content="https://trs-live-stream.vercel.app/logo.png">
 
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:description" content="Watch live TV channels from Bangladesh, India, Sports, Movies and News on The Rebel TV.">
-<meta name="twitter:image" content="https://your-site-logo-link.com/logo.png">
+<meta name="twitter:image" content="https://trs-live-stream.vercel.app/logo.png">
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
@@ -45,11 +43,6 @@ footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ff
 .cat-btn.active {background:#ffeb3b; color:#000;}
 #categories {text-align:center; padding:12px;}
 
-/* Ads placeholders */
-.ad-300x250 {width:300px; height:250px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
-.ad-728x90 {width:728px; height:90px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
-.ad-468x60 {width:468px; height:60px; margin:15px auto; background:#222; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border:2px dashed #ffeb3b;}
-
 /* Social Bar */
 #social-bar {position:fixed; top:50%; right:0; transform:translateY(-50%); background:#111; border:2px solid #ffeb3b; border-radius:8px 0 0 8px; padding:10px; display:flex; flex-direction:column; z-index:999;}
 #social-bar a {margin:5px 0; color:#ffeb3b; font-weight:bold; text-decoration:none; text-align:center;}
@@ -62,7 +55,18 @@ footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ff
 <marquee id="notice-line">Loading latest updates...</marquee>
 
 <!-- Banner 728x90 -->
-<div class="ad-728x90">Ad Banner 728x90</div>
+<div align="center" style="margin:15px 0;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '31a501c8d88371a838f142b5fc7974c4',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/31a501c8d88371a838f142b5fc7974c4/invoke.js"></script>
+</div>
 
 <div style="position:relative;">
   <video id="player" controls autoplay muted></video>
@@ -71,7 +75,18 @@ footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ff
 </div>
 
 <!-- Banner 300x250 -->
-<div class="ad-300x250">Ad Banner 300x250</div>
+<div align="center" style="margin:15px 0;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'a177bc1e7f4dc56db055b4067f819bef',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/a177bc1e7f4dc56db055b4067f819bef/invoke.js"></script>
+</div>
 
 <div id="categories">
   <button class="cat-btn active" data-cat="all">All</button>
@@ -85,7 +100,18 @@ footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ff
 <div class="grid" id="channels"></div>
 
 <!-- Banner 468x60 -->
-<div class="ad-468x60">Ad Banner 468x60</div>
+<div align="center" style="margin:15px 0;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '987b852931d51e8c4e994b89064da4bd',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/987b852931d51e8c4e994b89064da4bd/invoke.js"></script>
+</div>
 
 <!-- Social Bar -->
 <div id="social-bar">
@@ -96,6 +122,9 @@ footer {text-align:center; padding:12px; border-top:2px solid #ffeb3b; color:#ff
 
 <footer>POWER BY © THE REBEL SQUAD</footer>
 
+<!-- Extra popunder ads -->
+<script type='text/javascript' src='//pl27858050.effectivegatecpm.com/64/b0/7d/64b07dd9a4a8d88d2feb064b5877e03a.js'></script>
+
 <script>
 const grid = document.getElementById('channels');
 const player = document.getElementById('player');
@@ -104,20 +133,14 @@ let hls = null;
 let CHANNELS = [];
 let NOTIFICATIONS = {};
 
-// GitHub JSON links
 const channelURL = 'https://raw.githubusercontent.com/THE-REBEL-A4IF-V4U/Rebel/main/tts.json';
 const notificationURL = 'https://raw.githubusercontent.com/THE-REBEL-A4IF-V4U/Rebel/main/notice.json';
 
-// Fetch channels
 fetch(channelURL)
   .then(r=>r.json())
-  .then(data=>{
-    CHANNELS = data;
-    render(CHANNELS);
-  })
+  .then(data=>{ CHANNELS = data; render(CHANNELS); })
   .catch(err=>console.error('Channel fetch error:', err));
 
-// Fetch notifications
 fetch(notificationURL)
   .then(r=>r.json())
   .then(data=>{
@@ -127,7 +150,6 @@ fetch(notificationURL)
   })
   .catch(err=>console.error('Notification fetch error:', err));
 
-// Render channels
 function render(list){
   grid.innerHTML='';
   list.forEach(ch=>{
@@ -139,7 +161,6 @@ function render(list){
   });
 }
 
-// Play selected channel
 function selectChannel(ch){
   overlayText.style.display='none';
   if(hls){ hls.destroy(); hls=null; }
@@ -153,7 +174,6 @@ function selectChannel(ch){
   }
 }
 
-// Category filter
 document.querySelectorAll('.cat-btn').forEach(btn=>{
   btn.onclick=()=>{
     document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
@@ -162,14 +182,6 @@ document.querySelectorAll('.cat-btn').forEach(btn=>{
     if(cat==='all') render(CHANNELS);
     else render(CHANNELS.filter(c=>c.cat && c.cat.toLowerCase()===cat));
   }
-});
-
-// Popunder Ads
-window.addEventListener('load', ()=>{
-  setTimeout(()=>{
-    const pop = window.open('https://your-popunder-link.com','popunder','width=800,height=600,scrollbars=no');
-    if(pop) pop.blur(); window.focus();
-  }, 5000); // 5 seconds delay
 });
 </script>
 </body>
